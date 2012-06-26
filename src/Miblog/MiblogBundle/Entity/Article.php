@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Miblog\MiblogBundle\Entity
  * @ORM\Table(name="articles")
- * @ORM\Entity(repositoryClass="Miblog\MiblogBundle\Repository\ArticleRepository) 
+ * @ORM\Entity(repositoryClass="Miblog\MiblogBundle\Repository\ArticleRepository") 
  */
 class Article
 {

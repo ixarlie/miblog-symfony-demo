@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="users")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Miblog\UserBundle\Repository\UserRespository")
  * @UniqueConstraint(property="emailCanonical", message="user.emailCanonical.unique") 
  */
 class User extends BaseUser {

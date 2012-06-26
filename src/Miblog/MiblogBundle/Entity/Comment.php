@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="comments")
- * @ORM\Entity(repositoryClass="Miblog\MiblogBundle\Repository\CommentRepository)
+ * @ORM\Entity(repositoryClass="Miblog\MiblogBundle\Repository\CommentRepository")
  */
 class Comment
 {
