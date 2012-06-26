@@ -2,11 +2,30 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Blog de Symfony{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body id="{% block pageid '' %}">
+        <header>
+            <div class="container_16">
+                {% block header %}{% endblock %}
+            </div>
+        </header>
+
+        <div class="container_16">
+            {% block body %}{% endblock %}
+            <footer>
+                {% block footer %}
+                    {#
+                    <a href="{{ path('estatica', { 'pagina': 'copyright'}) }}">&copy; {{ 'now' | date('Y') }} - desymfony</a>
+                    <a href="{{ path('estatica', { 'pagina': 'privacidad'}) }}"> Privacidad</a>
+                    <a href="{{ path('estatica', { 'pagina': 'condiciones'}) }}"> Condiciones de uso</a>
+                    #}
+                {% endblock %}
+            </footer>
+        </div>
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

@@ -4,7 +4,7 @@ namespace Miblog\MiblogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class TagRepository extends EntityRepository
+class ArticleRepository extends EntityRepository
 {
     
     public function findComments() {
