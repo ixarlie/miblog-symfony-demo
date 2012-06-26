@@ -5,6 +5,7 @@ namespace Miblog\MiblogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Miblog\UserBundle\Entity\User;
 
 
 /**
@@ -101,9 +102,9 @@ class Comment
     /**
      * Set user
      *
-     * @param Miblog\MiblogBundle\Entity\User $user
+     * @param Miblog\UserBundle\Entity\User $user
      */
-    public function setUser(\Miblog\MiblogBundle\Entity\User $user)
+    public function setUser(\Miblog\UserBundle\Entity\User $user)
     {
         $this->user = $user;
     }
@@ -111,7 +112,7 @@ class Comment
     /**
      * Get user
      *
-     * @return Miblog\MiblogBundle\Entity\User 
+     * @return Miblog\UserBundle\Entity\User 
      */
     public function getUser()
     {

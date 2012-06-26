@@ -1,13 +1,13 @@
 <?php
 
-namespace Miblog\MiblogBundle\DataFixtures\ORM;
+namespace Miblog\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Miblog\MiblogBundle\Entity\User;
+use Miblog\UserBundle\Entity\User;
 
 class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
