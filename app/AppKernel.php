@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             
             new Miblog\MiblogBundle\MiblogBundle(),
-            new Miblog\UserBundle\UserBundle(),
+            new Miblog\UserBundle\UserBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
