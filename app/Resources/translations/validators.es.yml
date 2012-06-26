@@ -1,0 +1,146 @@
+checkin:
+    image:
+        type: checkin.image.type
+
+    text:
+        type: checkin.text.type
+
+    video:
+        type: checkin.video.type
+
+comment:
+    comment:
+        max_length: comment.comment.max_length
+        not_blank: comment.comment.not_blank
+
+content:
+    duration:
+        type: content.duration.type
+
+    event:
+        type: content.event.type
+
+    image:
+        type: content.image.type
+
+    page:
+        type: content.page.type
+
+    place:
+        type: content.place.type
+
+    public:
+        type: content.public.type
+
+    text:
+        type: content.text.type
+
+    type:
+        choice: content.type.choice
+        not_blank: content.type.not_blank
+
+    video:
+        type: content.video.type
+
+fos_user:
+    email:
+        already_used: fos_user.email.already_used
+        blank: fos_user.email.blank
+        invalid: fos_user.email.invalid
+        long: fos_user.email.long
+        short: fos_user.email.short
+
+    password:
+        blank: fos_user.password.blank
+        short: fos_user.password.short
+
+    username:
+        already_used: fos_user.username.already_used
+        blank: fos_user.username.blank
+        long: fos_user.username.long
+        short: fos_user.username.short
+
+friendship:
+    requestedSource:
+        choice: friendship.requestedSource.choice
+        not_blank: friendship.requestedSource.not_blank
+
+    status:
+        choice: friendship.status.choice
+
+repik:
+    image:
+        type: repik.image.type
+
+    owner:
+        type: repik.owner.type
+
+    text:
+        type: repik.text.type
+
+    user:
+        not_null: repik.user.not_null
+
+    video:
+        type: repik.video.type
+
+site:
+    category:
+        invalid: site.category.invalid
+        not_null: site.category.not_null
+
+    creator:
+        invalid: site.creator.invalid
+
+    latitude:
+        not_blank: site.latitude.not_blank
+
+    longitude:
+        not_blank: site.longitude.not_blank
+
+    name:
+        max_length: site.name.max_length
+        min_length: site.name.min_length
+        not_blank: site.name.not_blank
+
+    onwer:
+        not_null: site.onwer.not_null
+
+    owner:
+        type: site.owner.type
+
+'This value is not valid': 'El valor indicado no es correcto'
+
+user:
+    email:
+        invalid: 'El email no es correcto'
+        max_length: 'El email es demasiado largo'
+        min_length: 'El email es demasiado corto'
+        not_blank: 'Debes indicar un email'
+
+    emailCanonical:
+        unique: 'El email introducido ya existe'
+
+    firstName:
+        max_length: user.firstName.max_length
+        min_length: user.firstName.min_length
+        not_blank: user.firstName.not_blank
+
+    gender:
+        choice: user.gender.choice
+
+    lastName:
+        max_length: user.lastName.max_length
+        min_length: user.lastName.min_length
+
+    password:
+        min_length: user.password.min_length
+        not_blank: user.password.not_blank
+
+    termsOfService:
+        not_true: user.termsOfService.not_true
+
+user_will_go_site:
+    time:
+        integer: user_will_go_site.time.integer
+        not_blank: user_will_go_site.time.not_blank

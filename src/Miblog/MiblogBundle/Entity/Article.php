@@ -5,6 +5,7 @@ namespace Miblog\MiblogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Miblog\MiblogBundle\Entity
@@ -25,11 +26,13 @@ class Article
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\MaxLength(255)
+     * @Gedmo\Sluggable(slugField="slug")
      */
     protected $title;
     
     /**
      * @ORM\Column(type="string")
+     * @Gedmo\Slug(updatable=false)
      */
     protected $slug;
     
@@ -42,12 +45,14 @@ class Article
     /**
      * @ORM\Column(type="datetime", name="created_at")
      * @Assert\Date()
+     * @Gedmo\Timestampable(on="create")
      */
     protected $createdAt;
     
     /**
      * @ORM\Column(type="datetime", name="updated_at")
      * @Assert\Date()
+     * @Gedmo\Timestampable(on="update")
      */
     protected $updatedAt;
     
@@ -75,7 +80,7 @@ class Article
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-    $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**

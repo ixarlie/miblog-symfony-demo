@@ -34,15 +34,8 @@ class User extends BaseUser {
      */
     protected $updatedAt;
 
-    /**
-     * @Gedmo\Slug(updatable=false)
-     * @Gedmo\Sluggable(slugField="usernameCanonical")
-     */
     protected $username;
 
-    /**
-     * @Gedmo\Slug(updatable=false)
-     */
     protected $usernameCanonical;
 
     /**
@@ -50,7 +43,6 @@ class User extends BaseUser {
      * @Assert\MinLength(limit="4", message="user.email.min_length")
      * @Assert\MaxLength(limit="255", message="user.email.max_length")
      * @Assert\Email(message="user.email.invalid")
-     * @Gedmo\Sluggable(slugField="username")
      */
     protected $email;
 

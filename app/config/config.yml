@@ -47,6 +47,8 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+          StofDoctrineExtensionsBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -58,3 +60,19 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Miblog\MiblogBundle\Entity\User
+    
+ #Doctrine extensions
+stof_doctrine_extensions:
+    default_locale: %locale%
+    translation_fallback: true     
+    orm:
+        default:
+            timestampable:  true
+            sluggable: true
+            tree: true
+            translatable: true
