@@ -52,7 +52,11 @@ class UserRepository extends EntityRepository {
 
     public function getUserByUsername($username) {
         $user = $this->findOneBy(array('usernameCanonical' => $username));
-        
+        /*
+         * Para traernos todos los comentarios por ejemplo de un usuario, hariamos
+         * simplemente getComment. Con esto ya tendriamos el objeto rellenado en 
+         * ese atributo
+         */
         //$user->getComment();
         if (empty($user)) {
             throw new HttpException(404, "El usuario " . $username . " no existe.");
