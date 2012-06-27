@@ -1,12 +1,22 @@
 {% extends "MiblogBundle:Default:index.html.twig" %}
 
 
-{% block contenido %}
-    {{ parent() }}
-
-    {% block comentarios %}
-        Aqui van los comentarios
-
-    {% endblock %}
-
+{% block comments %}
+<hr />
+{% block formcomentario %}
+      <button class="btn">Comenta</button>
+      <!-- mientras -->
+      <textarea></textarea>
+{% endblock %}
+{% for c in a.comments %}
+    <p>{{c.message}}</p>
+    <br />
+{% else %}
+    <div class="alert fade in">
+    <button class="close" data-dismiss="alert" type="button" href="#">×</button>
+    <span>¡No hay comentarios! S&eacute; el primero en escribir uno</span>
+    </div>   
+{% endfor %}
+    
+    
 {% endblock %}

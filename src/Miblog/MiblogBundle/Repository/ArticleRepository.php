@@ -7,10 +7,6 @@ use Doctrine\ORM\EntityRepository;
 class ArticleRepository extends EntityRepository
 {
     
-    public function findComments() {
-        
-    }
-    
     public function findByUser($idUser) {
         $rsm = new ResultSetMapping();
         $rsm->addEntityResult('Miblog\MiblogBundle\Entity\Article', 'a');
