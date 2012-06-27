@@ -4,37 +4,17 @@
 {% block filter %}
     {% if filter is defined %}
     <div class="alert fade in">
-    <a class="close" data-dismiss="alert">×</a>
+    <button class="close" data-dismiss="alert" href="#">×</button>
     <span>Estas viendo las entradas por &quot;{{filter}}&quot;. Para ver el listado completo <a href="{{ path('web_main')}}">pulsa aquí</a></span>
     </div>    
     {% endif %}
 {% endblock %}
 
-{% for a in articles %}
-    <article id="{{ a.id }}">
-    <section class="article_header">
-        <header class="article_title"><h2><a href="{{ path('web_article', {'slug': a.slug })}}"><strong>{{ a.title }}</strong></a></h2></header>
-        <header class="article_author"><h5>Por <a href="{{ path('web_user_articles', {'name':a.user.usernameCanonical})}}">{{ a.user.firstName }}</a></h5></header>
-        <header class="article_created"><h6>{{ a.createdAt | date("l, d \\d\\e F \\d\\e Y") }}</h6></header>
-    </section>
-    <section class="article_content">
-        <p>{{ a.content }}</p>
-    </section>
-    <section class="article_footer">
-            <header class="article_tags">
-                <span class="badge badge-info">{{ a.tags | length }}</span> Etiquetas:
-            {% for t in a.tags %}
-            <span class="label label-inverse"><a href="{{ path("web_tag", { 'label': t.label }) }}">{{ t.label }}</a></span>
-            {% else %}
-            <span>-</span>
-            {% endfor %}
-            </header>
-            <header><span class="badge">{{ a.comments | length }}</span> comentarios</header>
-    </section>        
-    </article>
-    {% block comments %}{% endblock %}
-    <br/>
+{% for a in result %}
+    {% include 'MiblogBundle:Articles:showArticleBlock.html.twig' %}
 {% else %}
-     No hay articulos :(
+    <div class="alert alert-error">
+        <span>No hay artículos para esa consulta</span>
+    </div> 
 {% endfor %}
 {% endblock %}

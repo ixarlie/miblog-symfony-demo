@@ -19,11 +19,11 @@ class UserController extends Controller
     {
         $em = $this->get('doctrine')->getEntityManager();
 
-        $articles = $em->getRepository('UserBundle:User')->findArticlesByUserName($name);
+        $result = $em->getRepository('UserBundle:User')->findArticlesByUserName($name);
 
         return array(
             'filter' => $name,
-            'articles' => $articles,
+            'result' => $result,
         );
         
     }

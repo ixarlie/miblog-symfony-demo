@@ -16,11 +16,11 @@ class TagController extends Controller {
     public function indexAction($label) {
         $em = $this->get('doctrine')->getEntityManager();
 
-        $articles = $em->getRepository('MiblogBundle:Tag')->findArticlesByTag($label);
+        $result = $em->getRepository('MiblogBundle:Tag')->findArticlesByTag($label);
 
         return array(
             'filter' => $label,
-            'articles' => $articles,
+            'result' => $result,
         );
     }
 

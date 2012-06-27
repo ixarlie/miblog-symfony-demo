@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+
+{% block title %}Gestión{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row-fuild" id="contenido">  
+        <div class="span12" id="principal">
+        {% block gestion %}{% endblock %}
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+  <div class="row-fuild" id="contenido">  
+    <section class="span12" id="principal">
+      {% block contenido %}
+      {% endblock %}
+    </section>
+  </div>
+</div>
+{% endblock %}

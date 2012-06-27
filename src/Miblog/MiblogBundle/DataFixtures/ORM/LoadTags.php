@@ -20,7 +20,7 @@ class LoadTags extends AbstractFixture implements OrderedFixtureInterface, Conta
     
     public function load(ObjectManager $manager) {
         
-        $tags = array('php','java','python','javascript','delphi','.net','ruby','misc');
+        $tags = array('php','java','python','javascript','delphi','dotNet','ruby','misc');
         
         foreach ($tags as $key=>$tag)
         {

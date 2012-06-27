@@ -1,3 +1,8 @@
+AdminBundle:
+    resource: "@AdminBundle/Controller"
+    type: annotation
+    prefix: /admin
+
 MiblogBundle:
     resource: "@MiblogBundle/Controller"
     type: annotation
@@ -5,6 +10,11 @@ MiblogBundle:
 UserBundle:
     resource: "@UserBundle/Controller"
     type: annotation
+    
+UserBundle_Admin:    
+  resource: "@UserBundle/Controller/Admin"
+  type: annotation
+  prefix: /admin
     
 #FOSUSERBUNDLE
 fos_user_security:

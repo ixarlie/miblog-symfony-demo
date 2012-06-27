@@ -16,13 +16,13 @@ class ArticleController extends Controller {
     public function indexAction($slug) {
         $em = $this->get('doctrine')->getEntityManager();
 
-        $articles = $em->getRepository('MiblogBundle:Article')->findBy(
+        $result = $em->getRepository('MiblogBundle:Article')->findOneBy(
                 array(
                    "slug" => $slug, 
                 ));
 
         return array(
-            'articles' => $articles,
+            'a' => $result,
         );
     }
 

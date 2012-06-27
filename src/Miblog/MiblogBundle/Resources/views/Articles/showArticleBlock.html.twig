@@ -1,0 +1,24 @@
+<article id="{{ a.id }}">
+    <section class="article_header">
+        <header class="article_title">
+            <h2><a href="{{ path('web_article', {'slug': a.slug })}}"><strong>{{ a.title }}</strong></a></h2>
+        </header>
+        <header class="article_author"><h5>Por <a href="{{ path('web_user_articles', {'name':a.user.usernameCanonical})}}">{{ a.user.username }}</a></h5></header>
+        <header class="article_created"><h6>{{ a.createdAt | date("l, d \\d\\e F \\d\\e Y") }}</h6></header>
+    </section>
+    <section class="article_content">
+        <p>{{ a.content }}</p>
+    </section>
+    <section class="article_footer">
+            <header class="article_tags">
+                <span class="badge badge-info"><i class="icon-tags icon-white"></i> {{ a.tags | length }}</span>
+            {% for t in a.tags %}
+            <span class="label label-inverse"><a href="{{ path("web_tag", { 'label': t.label }) }}">{{ t.label }}</a></span>
+            {% else %}
+            <span>-</span>
+            {% endfor %}
+            </header>
+            <header><span class="badge"><i class="icon-comment icon-white"></i> {{ a.comments | length }}</span></header>
+    </section>        
+</article>
+<br/>

@@ -16,11 +16,10 @@ class DefaultController extends Controller {
     public function indexAction() {
         $em = $this->get('doctrine')->getEntityManager();
 
-        $articles = $em->getRepository('MiblogBundle:Article')->findAll();
+        $result = $em->getRepository('MiblogBundle:Article')->findAll();
 
         return array(
-            'name' => 'Usuario',
-            'articles' => $articles,
+            'result' => $result,
         );
     }
 

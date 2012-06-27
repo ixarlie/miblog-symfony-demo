@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             
             new Miblog\UserBundle\UserBundle(),
             new Miblog\MiblogBundle\MiblogBundle(),
-            
+            new Miblog\AdminBundle\AdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

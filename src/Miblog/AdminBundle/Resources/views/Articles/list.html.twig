@@ -1,0 +1,41 @@
+{% extends "AdminBundle::layout_admin.html.twig" %}
+
+
+{% block gestion %}
+<div class="btn-group">
+    <a href="{{ path('admin_article_new') }}"><button class="btn btn-primary">Nuevo</button></a>
+</div>
+{% endblock %}
+
+{% block contenido %}
+
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>#</th>
+<th>Titulo</th>
+<th>Autor</th>
+<th>Etiquetas</th>
+<th>Comentarios</th>
+<th><i class="icon-trash"></i></th>
+</tr>
+</thead>
+<tbody>
+{% for a in result %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td><a href="{{ path('admin_article_edit', {'slug': a.slug }) }}">{{ a.title }}</a></td>
+            <td>{{ a.user.username }}</td>
+            <td>{{ a.tags | length }}</td>
+            <td>{{ a.comments | length }}</td>
+            <td><a class="btn btn-danger" href="#"><i class="icon-trash icon-white"></i></a></td>
+        </tr>
+{% else %}
+    <div class="alert alert-error">
+        <span>Aún no se ha creado ningún artículo.</span>
+    </div>
+{% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
