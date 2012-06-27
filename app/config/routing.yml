@@ -1,15 +1,11 @@
 MiblogBundle:
-    resource: "@MiblogBundle/Resources/config/routing.yml"
-    prefix:   /
-       
-# Internal routing configuration to handle ESI
-#_internal:
-#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-#   prefix:   /_internal
-
-
-
-
+    resource: "@MiblogBundle/Controller"
+    type: annotation
+    
+UserBundle:
+    resource: "@UserBundle/Controller"
+    type: annotation
+    
 #FOSUSERBUNDLE
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

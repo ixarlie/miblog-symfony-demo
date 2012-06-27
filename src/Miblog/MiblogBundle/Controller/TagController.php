@@ -7,21 +7,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
-class ArticleController extends Controller {
+class TagController extends Controller {
 
     /**
-     * @Route("/article/{slug}", name="web_article")
-     * @Template("MiblogBundle:Articles:index.html.twig")
+     * @Route("/tag/{label}", name="web_tag")
+     * @Template("MiblogBundle:Default:index.html.twig")
      */
-    public function indexAction($slug) {
+    public function indexAction($label) {
         $em = $this->get('doctrine')->getEntityManager();
 
-        $articles = $em->getRepository('MiblogBundle:Article')->findBy(
-                array(
-                   "slug" => $slug, 
-                ));
+        $articles = $em->getRepository('MiblogBundle:Tag')->findArticlesByTag($label);
 
         return array(
+            'filter' => $label,
             'articles' => $articles,
         );
     }

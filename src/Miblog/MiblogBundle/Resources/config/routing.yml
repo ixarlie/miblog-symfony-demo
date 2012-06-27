@@ -1,7 +1,3 @@
-MiblogBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: MiblogBundle:Default:index }
-
 articles:
   pattern:  /articles
   defaults: { _controller: MiblogBundle:Article:index }

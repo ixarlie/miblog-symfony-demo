@@ -1,6 +1,29 @@
 <?php
 
+namespace Miblog\UserBundle\Repository;
+
+use Doctrine\ORM\EntityRepository;
+
 class UserRepository extends EntityRepository {
+    
+    public function findArticlesByUserName($name)
+    {
+        $dql = 'SELECT a FROM MiblogBundle:Article a
+                JOIN a.user u
+                WHERE u.usernameCanonical = :name';
+        
+        $query = $this->getEntityManager()
+            ->createQuery($dql)
+            ->setParameters(array(
+                'name' => $name,
+                ));
+
+        try {
+            return $query->getResult();
+        } catch (NoResultException $e) {
+            return null;
+        }
+    }
 
     public function getUserProfile($username) {
         // ResultSetMapping, para realizar consultas nativas

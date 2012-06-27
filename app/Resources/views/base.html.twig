@@ -3,30 +3,24 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Blog de Symfony{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/libs/bootstrap.min.css')}}">
+        {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body id="{% block pageid '' %}">
+    <body id="{% block pageid '' %}" >
         <header>
-            <div class="container_16">
-                {% block header %}{% endblock %}
-            </div>
+            {% block header %}{% endblock %}
         </header>
-
-        <div class="container_16">
             {% block body %}{% endblock %}
-            <footer>
-                {% block footer %}
-                    {#
-                    <a href="{{ path('estatica', { 'pagina': 'copyright'}) }}">&copy; {{ 'now' | date('Y') }} - desymfony</a>
-                    <a href="{{ path('estatica', { 'pagina': 'privacidad'}) }}"> Privacidad</a>
-                    <a href="{{ path('estatica', { 'pagina': 'condiciones'}) }}"> Condiciones de uso</a>
-                    #}
-                {% endblock %}
-            </footer>
-        </div>
+        <footer>
+            {% block footer %}{% endblock %}
+        </footer>
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/libs/jquery.min.js')}}"></script>
 
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+            <script src="{{ asset('assets/js/libs/bootstrap.min.js')}}"></script>
+        {% endblock %}
+        
     </body>
 </html>

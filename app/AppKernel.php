@@ -22,8 +22,9 @@ class AppKernel extends Kernel
             new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             
+            new Miblog\UserBundle\UserBundle(),
             new Miblog\MiblogBundle\MiblogBundle(),
-            new Miblog\UserBundle\UserBundle()
+            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,1 +1,55 @@
-{# empty Twig template #}
+{% extends "::base.html.twig" %}
+
+{% block header %}
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+    <div class="container">
+        <a class="brand" href="{{ path('web_main')}}">Blog de Symfony</a>
+        <div class="nav-collapse">
+        <ul class="nav">
+            <li class="active">
+                <a href="{{ path('web_main')}}">Inicio</a>
+            </li>
+            <li><a href="#">Contacto</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="#">Admin</a></li>
+            {% else %}
+                <li><a href="#">{{ app.user ? 'Mi perfil' : 'Regístrate' }}</a></li>
+            {% endif %}
+            {% if app.user %}
+            <li><a href="{{ path('logout') }}">Salir</a></li>
+            {% endif %}
+        </ul>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+  <div class="row-fuild" id="contenido">  
+    <section class="span12" id="principal">
+      {% block contenido %}{% endblock %}
+    </section>
+    <section class="span4" id="lateral">
+      {% block lateral %}
+          <div>
+          {% if is_granted(['ROLE_USER']) %}
+          {# usuario #}
+              <h4><a href="#">aqui iria el nombre</a></h4>
+          {% elseif is_granted(['ROLE_ADMIN']) %}
+          {# administrador #}
+              <h4>Administrador</h4>
+              <p>Estás logueado como <strong>#nombre</strong></p>
+          {% else %}
+              {# no ha hecho login #}
+              <a href="#" class="btn">Regístrate</a>
+              <p>¿Ya estás registrado? <a href="#">Haz login</a></p>
+          {% endif %}
+          </div>
+      {% endblock %}
+    </section>
+  </div>
+  </div>
+{% endblock %}

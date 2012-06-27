@@ -58,7 +58,7 @@ class Article
     protected $updatedAt;
     
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="Miblog\UserBundle\Entity\User", inversedBy="articles")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;

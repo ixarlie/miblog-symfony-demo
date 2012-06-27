@@ -1,29 +1,31 @@
 <?php
 
-namespace Miblog\MiblogBundle\Controller;
+namespace Miblog\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
-class ArticleController extends Controller {
 
+class UserController extends Controller
+{
+    
     /**
-     * @Route("/article/{slug}", name="web_article")
-     * @Template("MiblogBundle:Articles:index.html.twig")
+     * @Route("/articles/user/{name}", name="web_user_articles")
+     * @Template("MiblogBundle:Default:index.html.twig")
      */
-    public function indexAction($slug) {
+    public function indexAction($name)
+    {
         $em = $this->get('doctrine')->getEntityManager();
 
-        $articles = $em->getRepository('MiblogBundle:Article')->findBy(
-                array(
-                   "slug" => $slug, 
-                ));
+        $articles = $em->getRepository('UserBundle:User')->findArticlesByUserName($name);
 
         return array(
+            'filter' => $name,
             'articles' => $articles,
         );
+        
     }
 
 }
