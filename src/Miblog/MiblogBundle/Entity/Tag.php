@@ -84,4 +84,9 @@ class Tag
     {
         return $this->articles;
     }
+    
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 }

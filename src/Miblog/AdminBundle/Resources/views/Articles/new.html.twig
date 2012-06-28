@@ -1,0 +1,12 @@
+{% extends "AdminBundle::layout_admin.html.twig" %}
+
+{% block contenido %}
+
+<form action="{{path('admin_article_new')}}" method="post" novalidate >
+    {{ form_widget(form) }}
+    <div class="form-actions">
+    <input  class="btn btn-primary" type="submit" value="Guardar"/>
+    <a class="btn" href="{{path('admin_article_list')}}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

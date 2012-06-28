@@ -21,7 +21,7 @@
 {% endfor %}
 <hr />
 {% block formcomentario %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
       <button class="btn">Comenta</button>
       <!-- mientras -->
       <textarea></textarea>

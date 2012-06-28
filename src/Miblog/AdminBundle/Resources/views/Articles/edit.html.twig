@@ -1,0 +1,28 @@
+{% extends "AdminBundle::layout_admin.html.twig" %}
+
+{% block contenido %}
+<h3>Creado por <b>{{ user }}</b></h3>
+<hr />
+<form action="{{path('admin_article_edit', {'slug':slug})}}" method="post">
+    <div>
+        {{ form_label(form.article.title,'Titulo') }}
+        {{ form_errors(form.article.title) }}
+        {{ form_widget(form.article.title) }}
+    </div>
+    <div>
+        {{ form_label(form.article.content,'Contenido') }}
+        {{ form_errors(form.article.content) }}
+        {{ form_widget(form.article.content) }}
+    </div>
+    <div>
+        {{ form_widget(form.confirmtags) }}
+        {{ form_label(form.confirmtags) }}
+    </div>  
+    
+    {{ form_rest(form) }}
+    <div class="form-actions">
+        <input  class="btn btn-primary" type="submit" value="Guardar"/>
+        <a class="btn" href="{{path('admin_article_list')}}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

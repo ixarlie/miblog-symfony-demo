@@ -76,3 +76,10 @@ stof_doctrine_extensions:
             sluggable: true
             tree: true
             translatable: true
+            
+            
+services:
+ twig.extension.text:
+     class: Twig_Extensions_Extension_Text
+     tags:
+         - { name: twig.extension }

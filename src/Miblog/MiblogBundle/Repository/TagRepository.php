@@ -3,6 +3,7 @@
 namespace Miblog\MiblogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class TagRepository extends EntityRepository
 {
@@ -25,6 +26,18 @@ class TagRepository extends EntityRepository
             return null;
         }
         
+    }
+    
+    public function getAllTagnames()
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult('Miblog\MiblogBundle\Entity\Tag', 't');
+        $rsm->addFieldResult('t', 't_label', 'label');
+        
+        $sql = 'SELECT t.label as t_label FROM tags t';
+        $query = $this->getEntityManager()
+                ->createNativeQuery($sql, $rsm);
+        return $query->getArrayResult();
     }
     
     public function findTagByName($tagname) {

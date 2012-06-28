@@ -9,11 +9,15 @@
 
 {% block contenido %}
 
+{{ function.flash_alerts('alert-info') }}
+
 <table class="table table-striped table-bordered">
 <thead>
 <tr>
 <th>#</th>
+<th>Creado</th>
 <th>Titulo</th>
+<th>Contenido</th>
 <th>Autor</th>
 <th>Etiquetas</th>
 <th>Comentarios</th>
@@ -24,7 +28,9 @@
 {% for a in result %}
         <tr>
             <td>{{ loop.index }}</td>
+            <td>{{ a.createdAt | date('Y-m-d') }}</td>
             <td><a href="{{ path('admin_article_edit', {'slug': a.slug }) }}">{{ a.title }}</a></td>
+            <td>{{ a.content | truncate(50, true) }}</td>
             <td>{{ a.user.username }}</td>
             <td>{{ a.tags | length }}</td>
             <td>{{ a.comments | length }}</td>

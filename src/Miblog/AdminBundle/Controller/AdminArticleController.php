@@ -2,12 +2,17 @@
 
 namespace Miblog\AdminBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Miblog\AdminBundle\Form\Model\ArticleForm;
+use Miblog\AdminBundle\Form\Type\ArticleFormType;
+use Miblog\AdminBundle\Form\Handler\ArticleFormHandler;
+use Miblog\MiblogBundle\Entity\Article;
 
-class AdminArticleController extends Controller {
+class AdminArticleController extends ContainerAware {
 
     /**
      * @Secure(roles="ROLE_ADMIN")
@@ -15,7 +20,7 @@ class AdminArticleController extends Controller {
      * @Template("AdminBundle:Articles:list.html.twig")
      */
     public function listAction() {
-        $em = $this->get('doctrine')->getEntityManager();
+        $em = $this->container->get('doctrine')->getEntityManager();
 
         $rs = $em->getRepository('MiblogBundle:Article')->findAll();
 
@@ -23,30 +28,71 @@ class AdminArticleController extends Controller {
             'result' => $rs,
         );
     }
-    
-    
+
     /**
      * @Secure(roles="ROLE_ADMIN")
      * @Route("article/edit/{slug}", name="admin_article_edit")
      * @Template("AdminBundle:Articles:edit.html.twig")
      */
-    public function editAction() {
+    public function editAction($slug) {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $rs = $em->getRepository('MiblogBundle:Article')->findOneBy(
+                array(
+                    'slug' => $slug,
+                ));
+
+        $form = $this->container->get('form.factory')->create(new ArticleFormType(), array());
         
+        $form_handler = new ArticleFormHandler(
+                $form,
+                $this->container->get('request'),
+                $this->container->get('doctrine.orm.entity_manager'),
+                $rs->getUser());
         
+        $articleform = new ArticleForm();
+        $articleform->setArticle($rs);
+        $articleform->setConfirmTags(true);
         
+        $process = $form_handler->process($articleform);
+        
+        if ($process) {
+            $this->setFlash('aviso1', 'El artículo se modificó correctamente');
+            return new RedirectResponse($this->container->get('router')->generate('admin_article_list'));
+        }
+        
+        return array(
+            'form' => $form->createView(),
+            'slug' => $slug,
+            'user' => $rs->getUser()->getUsername(),
+        );
     }
-    
+
     /**
      * @Secure(roles="ROLE_ADMIN")
      * @Route("article/new", name="admin_article_new")
      * @Template("AdminBundle:Articles:new.html.twig")
      */
     public function newAction() {
+        $form = $this->container->get('form.factory')->create(new ArticleType(), array());
         
+        $form_handler = new ArticleHandler(
+                $form,
+                $this->container->get('request'),
+                $this->container->get('doctrine.orm.entity_manager'),
+                $this->container->get('security.context')->getToken()->getUser());
         
+        $process = $form_handler->process(new Article());
         
+        if ($process) {
+            $this->setFlash('aviso1', 'El artículo se creó correctamente');
+            return new RedirectResponse($this->container->get('router')->generate('admin_article_list'));
+        }
+        
+        return array(
+            'form' => $form->createView(),
+        );
     }
-    
+
     /** Esto no se haria con un controlador, sino con un formulario
      * @Secure(roles="ROLE_ADMIN")
      * @Route("article/remove/{slug}", name="admin_article_remove")
@@ -54,8 +100,11 @@ class AdminArticleController extends Controller {
      */
     public function removeAction($slug) {
         
-        
-        
+    }
+    
+    protected function setFlash($action, $value)
+    {
+        $this->container->get('session')->setFlash($action, $value);
     }
 
 }

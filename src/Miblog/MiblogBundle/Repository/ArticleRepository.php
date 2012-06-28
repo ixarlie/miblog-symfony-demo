@@ -3,6 +3,7 @@
 namespace Miblog\MiblogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class ArticleRepository extends EntityRepository
 {

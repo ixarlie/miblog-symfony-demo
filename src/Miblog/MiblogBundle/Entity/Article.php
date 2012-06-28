@@ -26,7 +26,7 @@ class Article
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     * @Assert\MaxLength(255)
+     * @Assert\MaxLength(limit="255")
      * @Gedmo\Sluggable(slugField="slug")
      */
     protected $title;
@@ -75,6 +75,9 @@ class Article
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")} )
      */
     protected $tags;
+    
+    
+
     
     
     
@@ -253,4 +256,6 @@ class Article
     {
         return $this->tags;
     }
+    
+
 }
