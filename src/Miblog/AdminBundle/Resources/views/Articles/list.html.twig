@@ -34,7 +34,7 @@
             <td>{{ a.user.username }}</td>
             <td>{{ a.tags | length }}</td>
             <td>{{ a.comments | length }}</td>
-            <td><a class="btn btn-danger" href="#"><i class="icon-trash icon-white"></i></a></td>
+            <td><a class="btn btn-danger" href="#myModal" data-toggle="modal" onclick="$(':input#deleteid').val('{{a.id}}');"><i class="icon-trash icon-white"></i></a></td>
         </tr>
 {% else %}
     <div class="alert alert-error">
@@ -43,5 +43,23 @@
 {% endfor %}
     </tbody>
 </table>
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Eliminar artículo</h3>
+    </div>
+    <div class="modal-body">
+    <p>¿Estás seguro que deseas eliminar el artículo?</p>
+    <p>Esta acción no se puede deshacer</p>
+    </div>
+    <div class="modal-footer">
+        <form action="{{ path('admin_article_remove') }}" method="POST">
+            <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+            <input type="hidden" name="deleteid" value="" id="deleteid" />
+            <input type="submit" name="submit" class="btn btn-danger" value="Proceder" />
+        </form>
+    </div>
+</div>
 
 {% endblock %}

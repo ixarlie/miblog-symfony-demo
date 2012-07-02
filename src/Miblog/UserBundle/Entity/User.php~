@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="Miblog\UserBundle\Repository\UserRespository")
+ * @ORM\Entity(repositoryClass="Miblog\UserBundle\Repository\UserRepository")
  * @UniqueConstraint(property="emailCanonical", message="user.emailCanonical.unique") 
  */
 class User extends BaseUser {
@@ -84,18 +84,12 @@ class User extends BaseUser {
     protected $lockedAt;
 
     /**
-     * @ORM\Column(type="string", length=16)
-     * @Assert\Choice({"ROLE_USER", "ROLE_ADMIN"}))
-     */
-    protected $role;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Article", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Miblog\MiblogBundle\Entity\Article", mappedBy="user")
      */
     protected $articles;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Miblog\MiblogBundle\Entity\Comment", mappedBy="user")
      */
     protected $comments;
 

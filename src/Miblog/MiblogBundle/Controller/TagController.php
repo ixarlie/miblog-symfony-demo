@@ -10,16 +10,21 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class TagController extends Controller {
 
     /**
-     * @Route("/tag/{label}", name="web_tag")
+     * @Route("/tag/{slug}", name="web_tag")
      * @Template("MiblogBundle:Default:index.html.twig")
      */
-    public function indexAction($label) {
+    public function indexAction($slug) {
         $em = $this->get('doctrine')->getEntityManager();
 
-        $result = $em->getRepository('MiblogBundle:Tag')->findArticlesByTag($label);
+        $result = $em->getRepository('MiblogBundle:Tag')->findArticlesByTag($slug);
+        
+        $rs = $em->getRepository('MiblogBundle:Tag')->findOneBy(
+                array(
+                   'slug' => $slug, 
+                ));
 
         return array(
-            'filter' => $label,
+            'filter' => $rs->getLabel(),
             'result' => $result,
         );
     }

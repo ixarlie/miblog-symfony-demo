@@ -6,7 +6,6 @@ namespace Miblog\MiblogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Miblog\UserBundle\Entity\User;
 
 /**
  * Miblog\MiblogBundle\Entity
@@ -26,7 +25,7 @@ class Article
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     * @Assert\MaxLength(255)
+     * @Assert\MaxLength(limit="255")
      * @Gedmo\Sluggable(slugField="slug")
      */
     protected $title;
@@ -58,13 +57,14 @@ class Article
     protected $updatedAt;
     
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="Miblog\UserBundle\Entity\User", inversedBy="articles")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
     
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
+     * @ORM\OrderBy({"createdAt" = "ASC"})
      */
     protected $comments;
     
@@ -75,6 +75,9 @@ class Article
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")} )
      */
     protected $tags;
+    
+    
+
     
     
     
@@ -253,4 +256,6 @@ class Article
     {
         return $this->tags;
     }
+    
+
 }

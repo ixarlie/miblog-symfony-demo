@@ -11,12 +11,14 @@ class ArticleForm {
     
 
     public function getCommaTags() {
-        $ret = '';
-        $tags = $this->article->getTags();
-        foreach ($tags as $tag) {
-            $ret = $ret . ((empty($ret)) ? $tag->getLabel() : ',' . $tag->getLabel());
+        if(empty($this->commatags)) {
+            $tags = $this->article->getTags();
+            foreach ($tags as $tag) {
+                $this->commatags = $this->commatags . 
+                ((empty($this->commatags)) ? $tag->getLabel() : ',' . $tag->getLabel());
+            } 
         }
-        return $ret;
+        return $this->commatags;
     }
 
     public function setCommaTags($commatags) {

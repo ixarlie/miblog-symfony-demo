@@ -4,6 +4,7 @@ namespace Miblog\MiblogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="tags")
@@ -23,11 +24,20 @@ class Tag
      * @Assert\NotBlank()
      * @Assert\MinLength(3)
      * @Assert\MaxLength(16)
+     * @Gedmo\Sluggable(slugField="slug")
      */
     protected $label;
     
+    
+    /**
+     * @ORM\Column(type="string")
+     * @Gedmo\Slug(updatable=false)
+     */
+    protected $slug;
+    
     /**
      * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
+     * @ORM\OrderBy({"createdAt" = "ASC"})
      */
     protected $articles;
     public function __construct()
@@ -83,5 +93,10 @@ class Tag
     public function getArticles()
     {
         return $this->articles;
+    }
+    
+    public function __toString()
+    {
+        return $this->getLabel();
     }
 }

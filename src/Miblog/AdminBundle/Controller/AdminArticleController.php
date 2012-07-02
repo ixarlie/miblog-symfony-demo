@@ -22,7 +22,9 @@ class AdminArticleController extends ContainerAware {
     public function listAction() {
         $em = $this->container->get('doctrine')->getEntityManager();
 
-        $rs = $em->getRepository('MiblogBundle:Article')->findAll();
+        $rs = $em->getRepository('MiblogBundle:Article')->findBy(
+                array(), array('createdAt' => 'ASC')
+        );
 
         return array(
             'result' => $rs,
@@ -42,24 +44,24 @@ class AdminArticleController extends ContainerAware {
                 ));
 
         $form = $this->container->get('form.factory')->create(new ArticleFormType(), array());
-        
+
         $form_handler = new ArticleFormHandler(
-                $form,
-                $this->container->get('request'),
-                $this->container->get('doctrine.orm.entity_manager'),
-                $rs->getUser());
-        
+                        $form,
+                        $this->container->get('request'),
+                        $this->container->get('doctrine.orm.entity_manager'),
+                        $rs->getUser());
+
         $articleform = new ArticleForm();
         $articleform->setArticle($rs);
         $articleform->setConfirmTags(true);
-        
+
         $process = $form_handler->process($articleform);
-        
+
         if ($process) {
             $this->setFlash('aviso1', 'El artículo se modificó correctamente');
             return new RedirectResponse($this->container->get('router')->generate('admin_article_list'));
         }
-        
+
         return array(
             'form' => $form->createView(),
             'slug' => $slug,
@@ -73,21 +75,25 @@ class AdminArticleController extends ContainerAware {
      * @Template("AdminBundle:Articles:new.html.twig")
      */
     public function newAction() {
-        $form = $this->container->get('form.factory')->create(new ArticleType(), array());
-        
-        $form_handler = new ArticleHandler(
-                $form,
-                $this->container->get('request'),
-                $this->container->get('doctrine.orm.entity_manager'),
-                $this->container->get('security.context')->getToken()->getUser());
-        
-        $process = $form_handler->process(new Article());
-        
+        $form = $this->container->get('form.factory')->create(new ArticleFormType(), array());
+
+        $form_handler = new ArticleFormHandler(
+                        $form,
+                        $this->container->get('request'),
+                        $this->container->get('doctrine.orm.entity_manager'),
+                        $this->container->get('security.context')->getToken()->getUser());
+
+        $articleform = new ArticleForm();
+        $articleform->setArticle(new Article());
+        $articleform->setConfirmTags(true);
+
+        $process = $form_handler->process($articleform);
+
         if ($process) {
             $this->setFlash('aviso1', 'El artículo se creó correctamente');
             return new RedirectResponse($this->container->get('router')->generate('admin_article_list'));
         }
-        
+
         return array(
             'form' => $form->createView(),
         );
@@ -95,15 +101,22 @@ class AdminArticleController extends ContainerAware {
 
     /** Esto no se haria con un controlador, sino con un formulario
      * @Secure(roles="ROLE_ADMIN")
-     * @Route("article/remove/{slug}", name="admin_article_remove")
+     * @Route("article/remove", name="admin_article_remove")
      * @Template("AdminBundle:Articles:list.html.twig")
      */
-    public function removeAction($slug) {
-        
+    public function removeAction() {
+        $request = $this->container->get('request');
+        if ($request->getMethod() == 'POST') {
+            $val = $request->get('deleteid');
+            
+            
+            $this->setFlash('aviso1', 'El artículo '.$val.' se borró o algo correctamente');
+            return new RedirectResponse($this->container->get('router')->generate('admin_article_list'));
+        }
+        return array();
     }
-    
-    protected function setFlash($action, $value)
-    {
+
+    protected function setFlash($action, $value) {
         $this->container->get('session')->setFlash($action, $value);
     }
 
